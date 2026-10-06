@@ -1,0 +1,133 @@
+body {
+  font-family: system-ui, sans-serif;
+  background: #faf6f0;
+  color: #2b2b2b;
+  display: flex;
+  justify-content: center;
+  padding: 40px 16px;
+}
+
+main {
+  max-width: 600px;
+  text-align: center;
+}
+
+#prompt {
+  font-size: 1.5rem;
+  margin: 32px 0;
+  min-height: 3em;
+}
+
+button {
+  font-size: 1rem;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  background: #d9614c;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #b94e3c;
+}
+
+#reference {
+  margin: 32px 0 0;
+}
+
+#reference-img {
+  max-width: 100%;
+  max-height: 60vh;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+#reference-credit {
+  font-size: 0.85rem;
+  color: #777;
+  margin-top: 8px;
+}
+
+#reference-credit a {
+  color: inherit;
+}
+
+#reference[hidden] {
+  display: none;
+}
+
+#status {
+  color: #777;
+  min-height: 1.5em;
+}
+
+#reference-link {
+  display: block;
+  margin-top: 24px;
+  color: #b94e3c;
+}
+
+/* Without this, display: block above would override the hidden attribute */
+#reference-link[hidden] {
+  display: none;
+}
+
+#save-btn {
+  background: white;
+  color: #d9614c;
+  border: 2px solid #d9614c;
+  margin-left: 8px;
+}
+
+#save-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+#save-btn[hidden],
+#favorites[hidden] {
+  display: none;
+}
+
+#favorites {
+  margin-top: 48px;
+  border-top: 1px solid #e5ddd2;
+  padding-top: 16px;
+}
+
+#favorites-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+}
+
+#favorites-list li {
+  background: white;
+  border-radius: 8px;
+  padding: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#favorites-list img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.remove-btn {
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  background: #eee;
+  color: #555;
+}
+
+.remove-btn:hover {
+  background: #ddd;
+}

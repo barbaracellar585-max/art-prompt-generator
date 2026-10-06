@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Art Prompt Generator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>What should I draw?</h1>
+
+    <!-- JavaScript will put the prompt text inside this paragraph -->
+    <p id="prompt">Click the button to get an idea.</p>
+
+    <button id="generate-btn">Give me an idea</button>
+    <button id="save-btn" hidden>♡ Save to favorites</button>
+
+    <!-- The reference picture. Hidden until we have one to show -->
+    <figure id="reference" hidden>
+      <img id="reference-img" alt="">
+      <figcaption id="reference-credit"></figcaption>
+    </figure>
+
+    <!-- Status messages like "Finding a picture..." -->
+    <p id="status"></p>
+
+    <!-- Hidden until the first idea is generated. target="_blank" opens a new tab -->
+    <a id="reference-link" href="#" target="_blank" rel="noopener" hidden>
+      Find reference pictures on Pinterest
+    </a>
+
+    <!-- Saved ideas. JavaScript fills in the list -->
+    <section id="favorites" hidden>
+      <h2>♥ Favorites</h2>
+      <ul id="favorites-list"></ul>
+    </section>
+  </main>
+
+  <!-- Loaded last so the HTML above exists before the script runs -->
+  <script src="app.js"></script>
+</body>
+</html>
