@@ -14,8 +14,33 @@ main {
 
 #prompt {
   font-size: 1.5rem;
-  margin: 32px 0;
-  min-height: 3em;
+  margin: 32px 0 8px;
+  min-height: 1.5em;
+}
+
+#medium {
+  /* fit-content keeps the pill shape; auto margins center it on its own line */
+  width: fit-content;
+  margin: 0 auto 24px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #f3e1d8;
+  color: #8a3b2c;
+  font-weight: 600;
+}
+
+#medium[hidden] {
+  display: none;
+}
+
+/* Smaller version of the medium label, used on favorite cards */
+.medium-tag {
+  align-self: center;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #f3e1d8;
+  color: #8a3b2c;
 }
 
 button {
