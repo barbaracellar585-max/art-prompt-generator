@@ -11,8 +11,15 @@
     <h1>What should I draw?</h1>
 
     <!-- JavaScript will put the prompt text inside this paragraph -->
-    <p id="prompt">Click the button to get an idea.</p>
-    <p id="medium" hidden></p>
+    <!-- Each row has a ↻ button to pick just that part again -->
+    <div class="idea-row">
+      <p id="prompt">Click the button to get an idea.</p>
+      <button id="reroll-subject" class="reroll-btn" title="New subject" aria-label="Pick a new subject" hidden>↻</button>
+    </div>
+    <div class="idea-row">
+      <p id="medium" hidden></p>
+      <button id="reroll-medium" class="reroll-btn" title="New medium" aria-label="Pick a new medium" hidden>↻</button>
+    </div>
 
     <button id="generate-btn">Give me an idea</button>
     <button id="save-btn" hidden>♡ Save to favorites</button>

@@ -118,9 +118,14 @@ const statusText = document.getElementById("status");
 const saveButton = document.getElementById("save-btn");
 const favoritesSection = document.getElementById("favorites");
 const favoritesList = document.getElementById("favorites-list");
+const rerollSubjectButton = document.getElementById("reroll-subject");
+const rerollMediumButton = document.getElementById("reroll-medium");
 
 // The idea currently on screen: { subject: "...", medium: "...", image: {...} or null }
 let currentIdea = null;
+
+// The subject object currently on screen, e.g. { idea: "a hedgehog", search: "hedgehog" }
+let currentSubject = null;
 
 // Saved favorites, loaded from the browser's storage when the page opens
 let favorites = loadFavorites();
@@ -131,28 +136,73 @@ function pickRandom(list) {
   return list[randomIndex];
 }
 
-// Runs every time the button is clicked
+// Pick a random item that's different from the current one
+function pickDifferent(list, current) {
+  let item = pickRandom(list);
+  // "while" repeats as long as its condition is true,
+  // so we keep picking until we get something new
+  while (item === current && list.length > 1) {
+    item = pickRandom(list);
+  }
+  return item;
+}
+
+// "Give me an idea" button: new subject AND new medium
 function generateIdea() {
-  const subject = pickRandom(subjects);
-  const medium = pickRandom(mediums);
+  showSubject(pickRandom(subjects));
+  showMedium(pickRandom(mediums));
+}
+
+// ↻ next to the subject: new subject, same medium
+function rerollSubject() {
+  showSubject(pickDifferent(subjects, currentSubject));
+}
+
+// ↻ next to the medium: new medium, same subject (and same reference drawing)
+function rerollMedium() {
+  showMedium(pickDifferent(mediums, currentIdea.medium));
+}
+
+// Show a subject and find its reference drawing. Keeps the current medium.
+function showSubject(subject) {
+  let medium = null;
+  if (currentIdea !== null) {
+    medium = currentIdea.medium;
+  }
+
+  currentSubject = subject;
+  // A brand-new idea object, so a drawing still loading for the old subject gets ignored
   currentIdea = { subject: subject.idea, medium: medium, image: null };
 
-  // Reset the save button for the new idea
-  saveButton.hidden = false;
-  saveButton.disabled = false;
-  saveButton.textContent = "♡ Save to favorites";
-
-  // Show the idea on the page
   promptText.textContent = subject.idea;
-  mediumText.textContent = "Draw it with: " + medium;
-  mediumText.hidden = false;
+  rerollSubjectButton.hidden = false;
 
   // Build a Pinterest search link for simple drawings of that idea and show it
   referenceLink.href = "https://www.pinterest.com/search/pins/?q=" + encodeURIComponent(subject.search + " simple drawing");
   referenceLink.hidden = false;
 
+  resetSaveButton();
+
   // Fetch a reference drawing using the short search words
   showReferenceImage(subject.search);
+}
+
+// Show a medium. Keeps the current subject.
+function showMedium(medium) {
+  currentIdea.medium = medium;
+
+  mediumText.textContent = "Draw it with: " + medium;
+  mediumText.hidden = false;
+  rerollMediumButton.hidden = false;
+
+  resetSaveButton();
+}
+
+// The idea changed, so it can be saved as a new favorite
+function resetSaveButton() {
+  saveButton.hidden = false;
+  saveButton.disabled = false;
+  saveButton.textContent = "♡ Save to favorites";
 }
 
 // Search the Openverse image library and return the list of results.
@@ -382,6 +432,8 @@ function showFavorites() {
 // When the buttons are clicked, run the matching function
 button.addEventListener("click", generateIdea);
 saveButton.addEventListener("click", addFavorite);
+rerollSubjectButton.addEventListener("click", rerollSubject);
+rerollMediumButton.addEventListener("click", rerollMedium);
 
 // Show any favorites saved from last time
 showFavorites();
